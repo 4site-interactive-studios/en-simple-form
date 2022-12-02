@@ -26,7 +26,7 @@ export class EnSimpleForm {
   }
 
   private run() {
-    console.log(this._containers, this._fields);
+    // console.log(this._containers, this._fields);
     this._containers.forEach((container) => {
       const containerElements = document.querySelectorAll(container);
       containerElements.forEach((containerElement) => {
@@ -54,7 +54,7 @@ export class EnSimpleForm {
   private allFieldsHaveValues() {
     let allFieldsHaveValues = true;
     this._fields.forEach((field) => {
-      console.log(field, this.getFieldValue(field));
+      // console.log(field, this.getFieldValue(field));
       if (this.getFieldValue(field) === "") {
         allFieldsHaveValues = false;
       }
