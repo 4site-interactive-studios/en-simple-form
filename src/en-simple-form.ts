@@ -94,6 +94,22 @@ export class EnSimpleForm {
       this.log("EN Page Not Detected");
       return false;
     }
+    const submissionFailed = !!(
+      this.checkNested(
+        (window as any).EngagingNetworks,
+        "require",
+        "_defined",
+        "enjs",
+        "checkSubmissionFailed"
+      ) &&
+      (
+        window as any
+      ).EngagingNetworks.require._defined.enjs.checkSubmissionFailed()
+    );
+    if (submissionFailed) {
+      this.log("Submission Failed");
+      return false;
+    }
     if (this._fields.length === 0) {
       this.log("No fields");
       return false;
@@ -128,6 +144,15 @@ export class EnSimpleForm {
     return results === null
       ? ""
       : decodeURIComponent(results[1].replace(/\+/g, " "));
+  }
+  private checkNested(obj: any, ...args: any[]) {
+    for (let i = 0; i < args.length; i++) {
+      if (!obj || !obj.hasOwnProperty(args[i])) {
+        return false;
+      }
+      obj = obj[args[i]];
+    }
+    return true;
   }
   private log(message: string | object) {
     if (this.isDebug()) {
